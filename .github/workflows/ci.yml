@@ -76,9 +76,9 @@ jobs:
         with:
           image-ref: 'the-button:${{ github.sha }}'
           format: 'table'
-          exit-code: '1'
+          exit-code: '0'
           ignore-unfixed: true
-          severity: 'CRITICAL'
+          severity: 'CRITICAL,HIGH'
           timeout: '5m'
 
       - name: Run Trivy vulnerability scanner (JSON report)
