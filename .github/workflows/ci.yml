@@ -194,7 +194,7 @@ jobs:
         if: steps.versioning.outputs.new_tag
         run: |
           SHORT_SHA=$(echo ${{ github.sha }} | cut -c1-7)
-          docker pull ${{ secrets.DOCKER_USERNAME }}/the-button:${SHORT_SHA}
+          docker pull ${{ secrets.DOCKER_USERNAME }}/the-button:latest
           docker tag ${{ secrets.DOCKER_USERNAME }}/the-button:${SHORT_SHA} ${{ secrets.DOCKER_USERNAME }}/the-button:${{ steps.versioning.outputs.new_tag }}
           docker push ${{ secrets.DOCKER_USERNAME }}/the-button:${{ steps.versioning.outputs.new_tag }}
           docker tag ${{ secrets.DOCKER_USERNAME }}/the-button:${SHORT_SHA} ${{ secrets.DOCKER_USERNAME }}/the-button:latest
