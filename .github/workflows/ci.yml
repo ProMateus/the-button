@@ -171,6 +171,13 @@ jobs:
         run: |
           ssh-keyscan ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
 
+      - name: Debug repository
+        run: |
+          pwd
+          ls -la
+          ls -la .github
+          ls -la .github/scripts
+
       - name: Prepare deployment
         run: |
           chmod +x ./.github/scripts/deploy.sh
