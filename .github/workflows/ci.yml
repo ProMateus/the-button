@@ -193,12 +193,16 @@ jobs:
       - name: Tag and push Docker image with version
         if: steps.versioning.outputs.new_tag
         run: |
-          SHORT_SHA=$(echo ${{ github.sha }} | cut -c1-7)
-          docker pull ${{ secrets.DOCKER_USERNAME }}/the-button:${SHORT_SHA}
-          docker tag ${{ secrets.DOCKER_USERNAME }}/the-button:${SHORT_SHA} ${{ secrets.DOCKER_USERNAME }}/the-button:${{ steps.versioning.outputs.new_tag }}
-          docker push ${{ secrets.DOCKER_USERNAME }}/the-button:${{ steps.versioning.outputs.new_tag }}
-          docker tag ${{ secrets.DOCKER_USERNAME }}/the-button:${SHORT_SHA} ${{ secrets.DOCKER_USERNAME }}/the-button:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/the-button:latest
+          docker pull ${{ secrets.DOCKER_USERNAME }}/the-button:latest
+
+          docker tag \
+            ${{ secrets.DOCKER_USERNAME }}/the-button:latest \
+            ${{ secrets.DOCKER_USERNAME }}/the-button:${{ steps.versioning.outputs.new_tag }}
+
+          docker push \
+            ${{ secrets.DOCKER_USERNAME }}/the-button:${{ steps.versioning.outputs.new_tag }}
+
+          echo "Version ${{ steps.versioning.outputs.new_tag }} published"
 
   deploy-to-production:
     needs: release
